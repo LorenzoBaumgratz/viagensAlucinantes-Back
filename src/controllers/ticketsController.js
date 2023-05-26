@@ -5,8 +5,8 @@ export async function getTicketDetails(req, res) {
     try {
         const result=await db.query(`select tickets.*, cities_from.city AS "fromCity",
         cities_to.city AS "toCity", airlines."airlineName"
-         from tickets JOIN cities AS cities_from ON cities_from.id = tickets."fromCityId"
-         JOIN cities AS cities_to ON cities_to.id = tickets."toCityId"
+         from tickets JOIN cities AS cities_to ON cities_to.id = tickets."toCityId"
+         JOIN cities AS cities_from ON cities_from.id = tickets."fromCityId"
          JOIN airlines ON airlines.id = tickets."airlineId" where tickets.id=$1;`,[ticketId])
         return res.status(200).send(result.rows)
         // select tickets.*, cities.city from tickets join cities on cities.id=tickets."toCityId" where tickets."toCityId"=1;
