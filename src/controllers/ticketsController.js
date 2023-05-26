@@ -4,8 +4,10 @@ export async function getTicketsToCity(req, res) {
     const {city} = req.params
     const {min,max} = req.body
     try {
-        const result=await db.query(`select * from tickets where "toCityId"=$1 and $2<="ticketPrice"<=$3;`,[city,min,max])
+        const result=await db.query(`select * from tickets where "toCityId"=$1 and "ticketPrice"<=$3 and "ticketPrice">=$2;`,[city,min,max])
         return res.status(200).send(result.rows)
+        // select tickets.*, cities.city from tickets join cities on cities.id=tickets."toCityId" where tickets."toCityId"=1;
+
     } catch (err) {
         res.status(500).send(err.message)
     }
