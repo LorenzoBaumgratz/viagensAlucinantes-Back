@@ -1,3 +1,5 @@
+import { db } from "../db/database.js"
+
 export async function getAccommodations(req, res) {
     const {cityId} = req.params
     const {min,max} = req.body
@@ -15,7 +17,6 @@ export async function getAccommodationsDetails(req, res) {
     try {
         const result=await db.query(`select accommodations.*,cities.city,"mainImages".mainUrl from accommodations
         join cities on cities.id=accommodations."cityId" join "mainImages" on "mainImages".id="mainImageId"
-        join areas on areas."accommodationId"=accommodations.id join images on images."accommodationId"=accommodations.id
         where accommodations.id=$1 ;`,[accommodationId])
         return res.status(200).send(result.rows)
 
