@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getCities, getTickets, getTicketsToCity} from "../controllers/ticketsController.js";
+import { getCities, getTickets, getTicketsToCityId} from "../controllers/ticketsController.js";
 
 const tickets=Router()
 
 tickets.get("/cities",getCities)
-tickets.get("/tickets",getTickets)
-tickets.get("/tickets/:cityId",getTicketsToCity)
+tickets.get("/tickets/main/:CityId",getTickets)
+tickets.get("/tickets/:ticketId",getTicketsToCityId)
 
 export default tickets
