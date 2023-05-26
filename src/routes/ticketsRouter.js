@@ -4,6 +4,6 @@ import { getCities, getTicketsToCity} from "../controllers/ticketsController.js"
 const tickets=Router()
 
 tickets.get("/cities",getCities)
-tickets.get("/tickets/:city",getTicketsToCity)
+tickets.get("/tickets/:cityId",getTicketsToCity)
 
 export default tickets
