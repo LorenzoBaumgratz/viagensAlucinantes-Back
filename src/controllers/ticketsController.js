@@ -1,6 +1,6 @@
 import { db } from "../db/database.js"
 
-export async function getTicketsToCityId(req, res) {
+export async function getTicketDetails(req, res) {
     const {ticketId} = req.params
     try {
         const result=await db.query(`select tickets.*, cities.city, airlines."airlineName" from tickets join cities on cities.id=tickets."toCityId" join cities on cities.id=tickets."fromCityId" join airlines on airlines.id=tickets."airlineId" where tickets.id=$1;`,[ticketId])
