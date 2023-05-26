@@ -3,9 +3,11 @@ import { db } from "../db/database.js"
 export async function getTicketDetails(req, res) {
     const {ticketId} = req.params
     try {
-        const result=await db.query(`select tickets.*, cities.city as "from", cities.city as "to", airlines."airlineName" from tickets
-        JOIN cities ON cities.id = tickets."fromCityId"
-        JOIN cities AS cities_to ON cities_to.id = tickets."toCityId" join airlines on airlines.id=tickets."airlineId" where tickets.id=$1;`,[ticketId])
+        const result=await db.query(`select tickets.*, cities_from.city AS "fromCity",
+        cities_to.city AS "toCity", airlines."airlineName"
+         from tickets JOIN cities AS cities_from ON cities_from.id = tickets."fromCityId"
+         JOIN cities AS cities_to ON cities_to.id = tickets."toCityId"
+         JOIN airlines ON airlines.id = tickets."airlineId" where tickets.id=$1;`,[ticketId])
         return res.status(200).send(result.rows)
         // select tickets.*, cities.city from tickets join cities on cities.id=tickets."toCityId" where tickets."toCityId"=1;
 
