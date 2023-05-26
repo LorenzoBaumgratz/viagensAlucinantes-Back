@@ -4,6 +4,6 @@ import { getAccommodations, getAccommodationsDetails } from "../controllers/acco
 const accommodation=Router()
 
 accommodation.get("/accommodations/main/:cityId",getAccommodations)
-accommodation.get("/tickets/:accommodationId",getAccommodationsDetails)
+accommodation.get("/accommodations/:accommodationId",getAccommodationsDetails)
 
 export default accommodation
