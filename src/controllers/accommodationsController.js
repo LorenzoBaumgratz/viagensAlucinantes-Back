@@ -32,6 +32,8 @@ export async function getAccommodationsDetails(req, res) {
                 url:i.url
             }))
         }
+        console.log(areas.rows)
+        console.log(images.rows)
         return res.status(200).send(obj)
 
     } catch (err) {
