@@ -18,7 +18,7 @@ export async function getAccommodationsDetails(req, res) {
     const {accommodationId} = req.params
     try {
         const result=await db.query(`select accommodations.*,cities.city,"mainImages".mainUrl from accommodations
-        join cities on cities.id=accommodations."cityId" join "mainImages" on "mainImages".id="mainImageId"
+        join cities on cities.id=accommodations."cityId" join "mainImages" on "mainImages".id=accommodations."mainImgId"
         where accommodations.id=$1 ;`,[accommodationId])
         return res.status(200).send(result.rows)
 
