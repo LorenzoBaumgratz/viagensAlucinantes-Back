@@ -20,7 +20,19 @@ export async function getAccommodationsDetails(req, res) {
         const result=await db.query(`select accommodations.*,cities.city,"mainImages"."mainUrl" from accommodations
         join cities on cities.id=accommodations."cityId" join "mainImages" on "mainImages".id=accommodations."mainImgId"
         where accommodations.id=$1 ;`,[accommodationId])
-        return res.status(200).send(result.rows)
+        const images=await db.query(`select images.url from images where "accommodationId"=$1;`,[accommodationId])
+        const areas=await db.query(`select areas.type from areas where "accommodationId"=$1;`,[accommodationId])
+
+        const obj={
+            ...result.rows[0],
+            areas:areas.rows.map(i=>({
+                type:i.type
+            })),
+            images:images.rows.map(i=>({
+                url:i.url
+            }))
+        }
+        return res.status(200).send(obj)
 
     } catch (err) {
         res.status(500).send(err.message)
