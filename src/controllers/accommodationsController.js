@@ -4,7 +4,9 @@ export async function getAccommodations(req, res) {
     const {cityId} = req.params
     const {min,max} = req.body
     try {
-        const result=await db.query(`select * from accommodations where "cityId"=$1 and "hotelPrice"<=$3 and "hotelPrice">=$2;`,[cityId,min,max])
+        const result=await db.query(`select accommodations.*, "mainImages"."mainUrl" from accommodations
+        join "mainImages" on accommodations."mainImgId"="mainImages".id
+        where "cityId"=$1 and "hotelPrice"<=$3 and "hotelPrice">=$2;`,[cityId,min,max])
         return res.status(200).send(result.rows)
 
     } catch (err) {
