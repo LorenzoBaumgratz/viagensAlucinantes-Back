@@ -19,6 +19,9 @@ export async function getTicketDetails(req, res) {
 export async function getTickets(req, res) {
     const {cityId} = req.params
     const {min,max} = req.body
+    console.log("min",min)
+    console.log("max",max)
+
     try {
         const result=await db.query(`select tickets.*, cities.city from tickets join cities on cities.id=tickets."fromCityId" where tickets."toCityId"=$1 and "ticketPrice"<=$2 and "ticketPrice">=$3;`,[cityId,max,min])
         console.log(result.rows)
