@@ -4,7 +4,7 @@ import { getCities, getTicketDetails, getTickets} from "../controllers/ticketsCo
 const tickets=Router()
 
 tickets.get("/cities",getCities)
-tickets.get("/tickets/main/:cityId",getTickets)
-tickets.get("/tickets/:ticketId",getTicketDetails)
+tickets.post("/tickets/main/:cityId",getTickets)
+tickets.post("/tickets/:ticketId",getTicketDetails)
 
 export default tickets
