@@ -5,6 +5,6 @@ const tickets=Router()
 
 tickets.get("/cities",getCities)
 tickets.post("/tickets/main/:cityId",getTickets)
-tickets.post("/tickets/:ticketId",getTicketDetails)
+tickets.get("/tickets/:ticketId",getTicketDetails)
 
 export default tickets

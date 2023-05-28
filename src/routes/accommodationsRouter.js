@@ -3,7 +3,7 @@ import { getAccommodations, getAccommodationsDetails } from "../controllers/acco
 
 const accommodation=Router()
 
-accommodation.get("/accommodations/main/:cityId",getAccommodations)
+accommodation.post("/accommodations/main/:cityId",getAccommodations)
 accommodation.get("/accommodations/:accommodationId",getAccommodationsDetails)
 
 export default accommodation
