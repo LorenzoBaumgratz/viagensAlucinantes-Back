@@ -16,13 +16,9 @@ export async function getTickets(req, res) {
     const {min,max} = req.body
 
     try {
-        console.log("min",min)
-        console.log("max",max)
         const result=await getTicketsRep(cityId,max,min)
-        console.log(result.rows)
         return res.status(200).send(result.rows)
     } catch (err) {
-        console.log(err.message)
         res.status(500).send(err.message)
     }
 }
