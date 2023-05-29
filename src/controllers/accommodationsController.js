@@ -1,12 +1,10 @@
-import { db } from "../db/database.js"
+import { getAccom, getAccomDetail1, getAccomDetail2, getAccomDetail3 } from "../repositories/accommodationsRepository.js"
 
 export async function getAccommodations(req, res) {
     const {cityId} = req.params
     const {min,max} = req.body
     try {
-        const result=await db.query(`select accommodations.*, "mainImages"."mainUrl" from accommodations
-        join "mainImages" on accommodations."mainImgId"="mainImages".id
-        where "cityId"=$1 and "hotelPrice"<=$3 and "hotelPrice">=$2;`,[cityId,min,max])
+        const result=await getAccom(cityId,min,max)
         return res.status(200).send(result.rows)
 
     } catch (err) {
@@ -17,11 +15,9 @@ export async function getAccommodations(req, res) {
 export async function getAccommodationsDetails(req, res) {
     const {accommodationId} = req.params
     try {
-        const result=await db.query(`select accommodations.*,cities.city,"mainImages"."mainUrl" from accommodations
-        join cities on cities.id=accommodations."cityId" join "mainImages" on "mainImages".id=accommodations."mainImgId"
-        where accommodations.id=$1 ;`,[accommodationId])
-        const images=await db.query(`select * from images where "accommodationId"=$1;`,[accommodationId])
-        const areas=await db.query(`select * from areas where "accommodationId"=$1;`,[accommodationId])
+        const result=await getAccomDetail1(accommodationId)
+        const images=await getAccomDetail2(accommodationId)
+        const areas=await  getAccomDetail3(accommodationId)
 
         const obj={
             ...result.rows[0],
